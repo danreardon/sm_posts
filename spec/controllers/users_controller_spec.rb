@@ -46,6 +46,26 @@ describe UsersController do
       get :new
       response.should have_selector("title", :content => "Sign up")
     end
+    
+    it "should have a name field" do
+      get :new
+      response.should have_selector("input[name='user[name]'][type='text']")
+    end
+    
+    it "should have an email field" do
+      get :new
+      response.should have_selector("input[name='user[email]'][type='text']")
+    end
+    
+    it "should have a password field" do
+      get :new
+      response.should have_selector("input[name='user[password]'][type='password']")
+    end
+    
+    it "should have a password confirmation field" do
+      get :new
+      response.should have_selector("input[name='user[password_confirmation]'][type='password']")
+    end
   end
   
   describe "POST 'create'" do
@@ -72,7 +92,6 @@ describe UsersController do
         response.should render_template('new')
       end
     end
-  end
   
   describe "success" do
 
@@ -94,9 +113,9 @@ describe UsersController do
       
       it "should have a welcome message" do
         post :create, :user => @attr
-        flash[:success].should =~ /welcome to the sample app/i
-      end
-          
+        flash[:success].should =~ /Welcome to SM Posts!/i
+      end    
     end
   end
 end
+
